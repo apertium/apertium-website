@@ -1,0 +1,17 @@
+FROM apertium-beta AS base
+
+USER root
+
+RUN apt-get -qy update && apt-get -qfy --no-install-recommends --allow-downgrades dist-upgrade && apt-get -qfy -o Dpkg::Options::="--force-overwrite" install --no-install-recommends apertium-apy && apt-get -qfy autoremove --purge
+
+RUN apt-get -qy update && wget -q https://apertium.projectjj.com/pkgs.php -O - | grep '^nightly' | grep '~sid' | awk '{print $2}' | egrep '^apertium-\w{2,3}(-\w{2,3})?$' | grep -v 'm-all-dev' | grep -v 'm-get' | grep -v 'm-dev' | egrep -v 'apertium-en-fr|apertium-eo-fr|apertium-es-gl|apertium-oc-ca' | xargs -r apt-get -qfy -o Dpkg::Options::="--force-overwrite" --no-install-recommends --allow-downgrades install
+
+RUN apt-get -qy update && apt-get -qfy --no-install-recommends --allow-downgrades dist-upgrade && apt-get -qfy autoremove --purge
+
+FROM amd64/debian:buster
+COPY --from=base / /
+
+USER 1007:1007
+EXPOSE 2737
+WORKDIR /home/apertium/
+CMD ./run-apy.sh

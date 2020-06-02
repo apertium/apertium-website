@@ -1,0 +1,17 @@
+FROM amd64/debian:buster
+
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
+
+# UID/GID must match host's beta user
+RUN mkdir -p /home/apertium
+RUN groupadd -g 1007 apertium && useradd -d /home/apertium -M -u 1007 -g 1007 apertium
+
+# Upgrade everything and install APy
+RUN apt-get -qy update && apt-get -qfy --no-install-recommends install apt-utils
+RUN apt-get -qy update && apt-get -qfy --no-install-recommends dist-upgrade
+RUN apt-get -qy update && apt-get -qfy --no-install-recommends install wget ca-certificates
+RUN wget https://apertium.projectjj.com/apt/install-nightly.sh -O - | bash
+RUN apt-get -qy update && apt-get -qfy --no-install-recommends install file unzip zip apertium-apy
+
+ADD run-apy.sh /home/apertium/run-apy.sh
+RUN chown -R 1007:1007 /home/apertium
