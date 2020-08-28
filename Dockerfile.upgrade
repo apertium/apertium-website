@@ -1,11 +1,12 @@
 FROM apertium-beta AS base
 
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
 USER root
 
 RUN apt-get -qy update && apt-get -qfy --no-install-recommends --allow-downgrades dist-upgrade && apt-get -qfy -o Dpkg::Options::="--force-overwrite" install --no-install-recommends apertium-apy && apt-get -qfy autoremove --purge
 
 RUN apt-get -qy update && wget -q https://apertium.projectjj.com/pkgs.php -O - | grep '^nightly' | grep '~sid' | awk '{print $2}' | egrep '^apertium-\w{2,3}(-\w{2,3})?$' | grep -v 'm-all-dev' | grep -v 'm-get' | grep -v 'm-dev' | egrep -v 'apertium-en-fr|apertium-eo-fr|apertium-es-gl|apertium-oc-ca' | xargs -r apt-get -qfy -o Dpkg::Options::="--force-overwrite" --no-install-recommends --allow-downgrades install
-RUN apt-get -qy update && apt-get -qfy -o Dpkg::Options::="--force-overwrite" --no-install-recommends --allow-downgrades install file unzip zip python3-chardet python3-requests apertium-apy
+RUN apt-get -qy update && apt-get -qfy -o Dpkg::Options::="--force-overwrite" --no-install-recommends --allow-downgrades install file unzip zip python3-chardet python3-requests apertium-apy transfuse
 
 RUN apt-get -qy update && apt-get -qfy --no-install-recommends --allow-downgrades dist-upgrade && apt-get -qfy autoremove --purge
 
