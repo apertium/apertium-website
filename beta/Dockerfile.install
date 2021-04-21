@@ -11,7 +11,7 @@ RUN apt-get -qy update && apt-get -qfy --no-install-recommends install apt-utils
 RUN apt-get -qy update && apt-get -qfy --no-install-recommends dist-upgrade
 RUN apt-get -qy update && apt-get -qfy --no-install-recommends install wget ca-certificates
 RUN wget https://apertium.projectjj.com/apt/install-nightly.sh -O - | bash
-RUN apt-get -qy update && apt-get -qfy --no-install-recommends install file unzip zip python3-chardet python3-requests apertium-apy transfuse gawk
+RUN apt-get -qy update && apt-get -qfy --no-install-recommends install file unzip zip python3-chardet python3-requests python3-lxml python3-streamparser apertium-apy transfuse gawk
 
 ADD run-apy.sh /home/apertium/run-apy.sh
 RUN chown -R 1007:1007 /home/apertium
