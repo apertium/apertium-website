@@ -4,6 +4,10 @@ export default {
   defaultLocale: 'eng',
   htmlUrl: 'https://beta.apertium.org/',
   apyURL: 'https://beta.apertium.org/apy',
+  matomoConfig: {
+    urlBase: 'https://matomo.apertium.org/',
+    siteId: 7,
+  },
 
   defaultMode: Mode.Translation,
   enabledModes: new Set([Mode.Translation, Mode.Analysis, Mode.Generation]),
@@ -16,4 +20,3 @@ export default {
     '{{maintainer}}': "<a href='https://wiki.apertium.org/wiki/Apertium' target='_blank' rel='noopener'>Apertium</a>",
   },
 } as Config;
-
