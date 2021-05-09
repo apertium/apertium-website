@@ -1,5 +1,8 @@
 #!/bin/bash
 set -euo pipefail
+export DOCKER_BUILDKIT=1
+export BUILDKIT_PROGRESS=plain
+export PROGRESS_NO_TRUNC=1
 
 readonly here="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 readonly public_html=/home/beta/public_html
@@ -24,6 +27,9 @@ trap 'rm -rf "$tmp_dist"' EXIT
 
 docker build -t apertium-html-tools-beta .
 docker run --rm -v "$tmp_dist":/root/dist apertium-html-tools-beta
+docker system prune -f
 
-chown -R beta:beta "$tmp_dist/"
-rsync -avc --delete "$tmp_dist/" "$public_html"
+rsync -avc --delete "$tmp_dist/" "$public_html/"
+
+chown -R beta:beta ~beta
+chmod -R go-rwx ~beta

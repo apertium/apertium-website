@@ -17,3 +17,6 @@ git pull --all --autostash --rebase
 make clean
 make
 rsync -avc --delete build/ ../public_html/
+
+chown -R frontend:frontend ~frontend
+chmod -R go-rwx ~frontend
