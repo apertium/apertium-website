@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd /usr/share/apertium-apy/tools
 LANG='C.UTF-8' apertium-apy \
 	-j1 \
 	-n1 \
