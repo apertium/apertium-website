@@ -3,4 +3,4 @@ export DOCKER_BUILDKIT=1
 export BUILDKIT_PROGRESS=plain
 export PROGRESS_NO_TRUNC=1
 
-docker build --no-cache -t apertium-beta -f Dockerfile.upgrade .
+docker build --squash --no-cache -t apertium-beta -f Dockerfile.upgrade .

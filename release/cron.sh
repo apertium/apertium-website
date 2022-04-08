@@ -25,7 +25,7 @@ cp "$here/config.ts" .
 readonly tmp_dist="$(mktemp -d)"
 trap 'rm -rf "$tmp_dist"' EXIT
 
-docker build -t apertium-html-tools .
+docker build --squash -t apertium-html-tools .
 docker run --rm -v "$tmp_dist":/root/dist apertium-html-tools
 docker system prune -f
 
