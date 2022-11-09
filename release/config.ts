@@ -13,7 +13,7 @@ export default {
   enabledModes: new Set([Mode.Translation]),
   translationChaining: false,
 
-  allowedVariants: new Set(['BR', 'aran', 'valencia', 'e', 'PTpre1990']),
+  allowedVariants: new Set(['BR', 'aran', 'valencia', 'e', 'PTpre1990', 'gascon']),
 
   stringReplacements: {
     '{{maintainer}}': "<a href='https://wiki.apertium.org/wiki/Apertium' target='_blank' rel='noopener'>Apertium</a>",
