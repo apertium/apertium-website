@@ -11,4 +11,5 @@ LANG='C.UTF-8' apertium-apy \
 	-d \
 	-P /home/apertium/logs/ \
 	-l /usr/share/apertium-apy/langNames.db \
+        --fasttext-model /usr/share/apertium-apy/lid.beta.ftz \
 	/usr/share/apertium/
