@@ -1,4 +1,4 @@
-FROM apertium-beta
+FROM apertium-beta AS base
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true LD_PRELOAD=libeatmydata.so
 USER root
@@ -9,6 +9,12 @@ RUN apt-get -qy update && wget -q https://apertium.projectjj.com/pkgs.php -O - |
 RUN apt-get -qy update && apt-get -qfy -o Dpkg::Options::="--force-overwrite" --no-install-recommends --allow-downgrades install file unzip zip python3-chardet python3-requests python3-lxml python3-streamparser apertium-apy transfuse gawk python3-fasttext
 
 RUN apt-get -qy update && apt-get -qfy --no-install-recommends --allow-downgrades dist-upgrade && apt-get -qfy autoremove --purge
+
+
+FROM amd64/ubuntu:noble
+COPY --from=base / /
+
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true LD_PRELOAD=libeatmydata.so
 
 USER 1007:1007
 EXPOSE 2737
